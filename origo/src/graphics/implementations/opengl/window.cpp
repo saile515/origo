@@ -9,6 +9,8 @@ origo::Window::Window(int width, int height, std::string title)
   , _title(title){};
 
 int origo::Window::open() {
+    // GLFW setup
+
     if (!glfwInit()) {
         return 1;
     }
@@ -22,6 +24,17 @@ int origo::Window::open() {
     }
 
     glfwMakeContextCurrent(_implementation_data.glfw_window);
+
+    // GL3W setup
+
+    if (gl3wInit()) {
+        return 1;
+    }
+
+    // OpenGL version 4.6
+    if (!gl3wIsSupported(4, 6)) {
+        return 1;
+    }
 
     return 0;
 }

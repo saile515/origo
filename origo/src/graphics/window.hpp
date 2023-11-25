@@ -38,6 +38,14 @@ TEST_CASE("Window test") {
 
     REQUIRE(window.open() == 0);
 
+    SUBCASE("Window clear") {
+        CHECK(window.clear() == 0);
+    }
+
+    SUBCASE("Window render") {
+        CHECK(window.render() == 0);
+    }
+
     std::this_thread::sleep_for(std::chrono::milliseconds(10000));
 
     CHECK(window.close() == 0);
