@@ -1,5 +1,5 @@
 {
     "name": "origo",
     "version-string": "0.1.0",
-    "dependencies": ["fmt", "doctest", "spdlog", "glfw3"]
+    "dependencies": ["fmt", "doctest", "spdlog", "glfw3", "gl3w"]
 }

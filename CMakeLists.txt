@@ -32,19 +32,21 @@ endif()
 set(PRJ_TEST_MAIN tests/main.cpp)
 set(PRJ_INCLUDE_DIRS origo origo/src)
 set(PRJ_COMPILE_FEATURES cxx_std_20)
-set(PRJ_DEFINITIONS )
+set(PRJ_DEFINITIONS -DGRAPHICS_IMPLEMENTATION=${GRAPHICS_IMPLENTATION})
 set(PRJ_LIBRARIES 
     fmt::fmt
     doctest::doctest
     Threads::Threads
     spdlog::spdlog
     glfw
+    unofficial::gl3w::gl3w
 )
 
 find_package(fmt CONFIG REQUIRED)
 find_package(doctest CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
+find_package(gl3w CONFIG REQUIRED)
 
 include(FindThreads)
 
