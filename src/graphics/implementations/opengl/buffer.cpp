@@ -21,13 +21,13 @@ origo::Buffer<T>::Buffer() {
 template<typename T>
 int origo::Buffer<T>::set(std::vector<T> data) {
     glBindBuffer(GL_ARRAY_BUFFER, _buffer_id);
-    glBufferData(GL_ARRAY_BUFFER, data.size(), &data[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, int(data.size()), &data[0], GL_STATIC_DRAW);
 
     return 0;
 }
 
 template<typename T>
-int origo::Buffer<T>::bind_data(unsigned int attribute_id, unsigned int size) {
+int origo::Buffer<T>::bind_data(unsigned int attribute_id, int size) {
     glEnableVertexAttribArray(attribute_id);
     glBindBuffer(GL_ARRAY_BUFFER, _buffer_id);
 

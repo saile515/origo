@@ -12,7 +12,7 @@ private:
 public:
     Buffer();
     int set(std::vector<T> data);
-    int bind_data(unsigned int attribute_id, unsigned int size);
+    int bind_data(unsigned int attribute_id, int size);
 };
 
 }
