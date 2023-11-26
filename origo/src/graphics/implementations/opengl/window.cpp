@@ -36,6 +36,10 @@ int origo::Window::open() {
         return 1;
     }
 
+    GLuint vertex_array_id;
+    glGenVertexArrays(1, &vertex_array_id);
+    glBindVertexArray(vertex_array_id);
+
     return 0;
 }
 
@@ -45,13 +49,11 @@ int origo::Window::close() {
     return 0;
 }
 
-int origo::Window::clear() {
+int origo::Window::render() {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    return 0;
-}
+    glDrawArrays(GL_TRIANGLES, 0, 3);
 
-int origo::Window::render() {
     glfwSwapBuffers(_implementation_data.glfw_window);
     glfwPollEvents();
 

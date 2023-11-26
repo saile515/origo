@@ -20,13 +20,17 @@ set(GRAPHICS_IMPLENTATION "opengl" CACHE STRING "Selects graphics API. Available
 
 set(PRJ_HEADERS 
     origo/origo.hpp
+    origo/src/graphics/buffer.hpp
 )
 
 set(PRJ_SOURCES
 
 )
 if(GRAPHICS_IMPLENTATION STREQUAL "opengl")
-    list(APPEND PRJ_SOURCES origo/src/graphics/implementations/opengl/window.cpp)
+    list(APPEND PRJ_SOURCES 
+        origo/src/graphics/implementations/opengl/window.cpp
+        origo/src/graphics/implementations/opengl/buffer.cpp
+    )
 endif()
 
 set(PRJ_TEST_MAIN tests/main.cpp)
