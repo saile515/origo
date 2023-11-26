@@ -1,4 +1,4 @@
-#include "graphics/window.hpp"
+#include "origo/graphics/window.hpp"
 
 #include "GL/gl3w.h"
 #include <GLFW/glfw3.h>

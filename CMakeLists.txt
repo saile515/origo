@@ -16,11 +16,12 @@ include(cmake/Git.cmake)
 
 ### SETTINGS ###
 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY origo)
 set(GRAPHICS_IMPLENTATION "opengl" CACHE STRING "Selects graphics API. Available options: 'opengl'")
 
 set(PRJ_HEADERS 
-    origo/origo.hpp
-    origo/src/graphics/buffer.hpp
+    include/origo/origo.hpp
+    include/origo/graphics/buffer.hpp
 )
 
 set(PRJ_SOURCES
@@ -28,13 +29,14 @@ set(PRJ_SOURCES
 )
 if(GRAPHICS_IMPLENTATION STREQUAL "opengl")
     list(APPEND PRJ_SOURCES 
-        origo/src/graphics/implementations/opengl/window.cpp
-        origo/src/graphics/implementations/opengl/buffer.cpp
+        src/graphics/implementations/opengl/window.cpp
+        src/graphics/implementations/opengl/buffer.cpp
     )
 endif()
 
 set(PRJ_TEST_MAIN tests/main.cpp)
-set(PRJ_INCLUDE_DIRS origo origo/src)
+set(LIB_INCLUDE_DIRS include) # public
+set(PRJ_INCLUDE_DIRS src) # private
 set(PRJ_COMPILE_FEATURES cxx_std_20)
 set(PRJ_DEFINITIONS -DGRAPHICS_IMPLEMENTATION=${GRAPHICS_IMPLENTATION})
 set(PRJ_LIBRARIES 
@@ -91,20 +93,26 @@ set(PRJ_DEFINITIONS ${PRJ_DEFINITIONS}
 
 add_library(${PROJECT_NAME} STATIC ${PRJ_HEADERS} ${PRJ_SOURCES})
 target_link_libraries(${PROJECT_NAME} ${PRJ_LIBRARIES})
-target_include_directories(${PROJECT_NAME} PRIVATE ${PRJ_INCLUDE_DIRS})
-target_compile_features(${PROJECT_NAME} PRIVATE ${PRJ_COMPILE_FEATURES})
-target_compile_definitions(${PROJECT_NAME} PRIVATE ${PRJ_DEFINITIONS} ${PRJ_WARNINGS}
+target_include_directories(${PROJECT_NAME} PRIVATE ${PRJ_INCLUDE_DIRS} PUBLIC ${LIB_INCLUDE_DIRS})
+target_compile_features(${PROJECT_NAME} PUBLIC ${PRJ_COMPILE_FEATURES})
+target_compile_definitions(${PROJECT_NAME} PUBLIC ${PRJ_DEFINITIONS} ${PRJ_WARNINGS}
     DOCTEST_CONFIG_DISABLE # disables all test code in the final executable
 )
 
 # setup all warnings (from cmake/CompilerWarnings.cmake)
 set_project_warnings(${PROJECT_NAME})
 
+# copy include files to build directory
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/include/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/include/)
+
+
 if(${PROJECT_NAME}_ENABLE_UNIT_TESTING)
     message(STATUS "Unit tests are enabled and will be built as '${PROJECT_NAME}-tests'")
     add_executable(${PROJECT_NAME}-tests ${PRJ_HEADERS} ${PRJ_SOURCES} ${PRJ_TEST_MAIN})
     target_link_libraries(${PROJECT_NAME}-tests ${PRJ_LIBRARIES})
-    target_include_directories(${PROJECT_NAME}-tests PRIVATE ${PRJ_INCLUDE_DIRS})
+    target_include_directories(${PROJECT_NAME}-tests PRIVATE ${PRJ_INCLUDE_DIRS} ${LIB_INCLUDE_DIRS})
     target_compile_features(${PROJECT_NAME}-tests PRIVATE ${PRJ_COMPILE_FEATURES})
     target_compile_definitions(${PROJECT_NAME}-tests PRIVATE ${PRJ_DEFINITIONS} ${PRJ_WARNINGS})
     set_project_warnings(${PROJECT_NAME}-tests)

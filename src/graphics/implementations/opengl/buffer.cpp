@@ -1,4 +1,4 @@
-#include "graphics/buffer.hpp"
+#include "origo/graphics/buffer.hpp"
 
 #include "GL/gl3w.h"
 
