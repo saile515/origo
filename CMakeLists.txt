@@ -16,7 +16,7 @@ include(cmake/Git.cmake)
 
 ### SETTINGS ###
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY origo)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY origo)
 set(GRAPHICS_IMPLENTATION "opengl" CACHE STRING "Selects graphics API. Available options: 'opengl'")
 
 set(PRJ_HEADERS 
@@ -91,8 +91,8 @@ set(PRJ_DEFINITIONS ${PRJ_DEFINITIONS}
 )
 
 
-add_library(${PROJECT_NAME} STATIC ${PRJ_HEADERS} ${PRJ_SOURCES})
-target_link_libraries(${PROJECT_NAME} ${PRJ_LIBRARIES})
+add_library(${PROJECT_NAME} SHARED ${PRJ_HEADERS} ${PRJ_SOURCES})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${PRJ_LIBRARIES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PRJ_INCLUDE_DIRS} PUBLIC ${LIB_INCLUDE_DIRS})
 target_compile_features(${PROJECT_NAME} PUBLIC ${PRJ_COMPILE_FEATURES})
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${PRJ_DEFINITIONS} ${PRJ_WARNINGS}
