@@ -22,10 +22,12 @@ set(GRAPHICS_IMPLENTATION "opengl" CACHE STRING "Selects graphics API. Available
 set(PRJ_HEADERS 
     include/origo/origo.hpp
     include/origo/graphics/buffer.hpp
+
+    src/util/files.hpp
 )
 
 set(PRJ_SOURCES
-
+    src/util/files.cpp
 )
 if(GRAPHICS_IMPLENTATION STREQUAL "opengl")
     list(APPEND PRJ_SOURCES 
