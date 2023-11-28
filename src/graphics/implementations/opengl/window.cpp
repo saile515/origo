@@ -52,8 +52,6 @@ int origo::Window::close() {
 int origo::Window::render() {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-
     glfwSwapBuffers(_implementation_data.glfw_window);
     glfwPollEvents();
 
