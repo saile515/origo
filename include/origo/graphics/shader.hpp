@@ -10,8 +10,8 @@ private:
 
 public:
     Shader();
-    int load_shader(std::string vertex_path, std::string fragment_path);
-    int use_shader();
+    int load(std::string vertex_path, std::string fragment_path);
+    int use();
 };
 
 }

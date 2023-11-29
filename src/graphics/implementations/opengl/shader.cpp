@@ -7,8 +7,7 @@
 
 origo::Shader::Shader() {}
 
-int origo::Shader::load_shader(std::string vertex_path,
-                               std::string fragment_path) {
+int origo::Shader::load(std::string vertex_path, std::string fragment_path) {
     unsigned int vertex_shader_id = glCreateShader(GL_VERTEX_SHADER);
     unsigned int fragment_shader_id = glCreateShader(GL_FRAGMENT_SHADER);
 
@@ -66,6 +65,12 @@ int origo::Shader::load_shader(std::string vertex_path,
     glDetachShader(_shader_id, fragment_shader_id);
     glDeleteShader(vertex_shader_id);
     glDeleteShader(fragment_shader_id);
+
+    return 0;
+}
+
+int origo::Shader::use() {
+    glUseProgram(_shader_id);
 
     return 0;
 }
