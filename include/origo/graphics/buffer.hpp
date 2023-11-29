@@ -4,6 +4,8 @@
 
 namespace origo {
 
+enum Attribute { vertex_position };
+
 template<typename T>
 class Buffer {
 private:
@@ -12,7 +14,7 @@ private:
 public:
     Buffer();
     int set(std::vector<T> data);
-    int bind_data(unsigned int attribute_id, int size);
+    int bind_data(origo::Attribute attribute_id, int size);
 };
 
 }

@@ -27,7 +27,7 @@ int origo::Buffer<T>::set(std::vector<T> data) {
 }
 
 template<typename T>
-int origo::Buffer<T>::bind_data(unsigned int attribute_id, int size) {
+int origo::Buffer<T>::bind_data(origo::Attribute attribute_id, int size) {
     glEnableVertexAttribArray(attribute_id);
     glBindBuffer(GL_ARRAY_BUFFER, _buffer_id);
 
